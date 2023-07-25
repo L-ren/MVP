@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS hardiness (
+  id INT NOT NULL AUTO_INCREMENT,
+  minTemp INT,
+  maxTemp INT,
+  PRIMARY KEY(id)
+);

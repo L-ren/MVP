@@ -1,0 +1,16 @@
+CREATE TABLE IF NOT EXISTS plants (
+  id INT NOT NULL AUTO_INCREMENT,
+  perenualId INT,
+  owner VARCHAR(50) NOT NULL,
+  name VARCHAR(50) NOT NULL,
+  species VARCHAR(45),
+  waterFreq VARCHAR(10),
+  sunlight VARCHAR(15),
+  hardiness INT,
+  type VARCHAR(15), -- MAY NEED TO AJUST THIS
+  waterPeriod VARCHAR(10), -- MAY NEED TO AJUST THIS
+  waterDepth VARCHAR(10), -- MAY NEED TO AJUST THIS
+  maintenance VARCHAR(10), -- MAY NEED TO AJUST THIS
+  image VARCHAR(120), -- MAY NEED TO AJUST THIS
+  PRIMARY KEY(id)
+);
