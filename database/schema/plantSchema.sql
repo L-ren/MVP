@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS plants (
   id INT NOT NULL AUTO_INCREMENT,
   perenualId INT,
-  owner VARCHAR(50) NOT NULL,
+  ownerId INT,
   name VARCHAR(50) NOT NULL,
   species VARCHAR(45),
   waterFreq VARCHAR(10),
@@ -12,5 +12,10 @@ CREATE TABLE IF NOT EXISTS plants (
   waterDepth VARCHAR(10), -- MAY NEED TO AJUST THIS
   maintenance VARCHAR(10), -- MAY NEED TO AJUST THIS
   image VARCHAR(120), -- MAY NEED TO AJUST THIS
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  FOREIGN KEY(hardiness)
+    REFERENCES hardiness(id),
+  FOREIGN KEY(ownerId)
+    REFERENCES users(id),
+  INDEX ownerIndex USING BTREE (ownerId)
 );
