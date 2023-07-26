@@ -7,7 +7,6 @@ const PlantTile = () => {
   const onDelete = (e) => {
     console.log('deleting!');
   }
-  console.log(`test`);
 
   return (
     <div className='tile'>

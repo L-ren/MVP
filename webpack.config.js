@@ -15,8 +15,7 @@ module.exports = {
     open: true,
     client: {
       logging: 'none'
-    },
-    port: 9000
+    }
   },
   module: {
     rules: [

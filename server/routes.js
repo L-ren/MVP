@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log('post request received');
-  res.sendStatus(201);
+  res.status(201).send(req.body);
 })
 
 router.put('/', (req, res) => {
