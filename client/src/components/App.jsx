@@ -5,7 +5,7 @@ import AddPlant from './AddPlant.jsx';
 const App = () => {
   const [newPlant, setNewPlant] = useState(false);
 
-  const addPlant = () => {
+  const addPlant = (e) => {
     console.log('adding plant');
     setNewPlant(true);
   };
@@ -13,8 +13,10 @@ const App = () => {
 
   return (
     <>
-      <title>Plant Talk</title>
+      <h2>Plant Talk</h2>
       <PlantList />
+      <button onClick={addPlant}>Add plant!</button>
+      {newPlant && <AddPlant />}
     </>
   );
 };
