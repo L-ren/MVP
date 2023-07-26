@@ -10,6 +10,14 @@ module.exports = {
     filename: "bundle.js",
     path: DIST_DIR
   },
+  devServer: {
+    static: path.resolve(__dirname, 'client/dist'),
+    open: true,
+    client: {
+      logging: 'none'
+    },
+    port: 9000
+  },
   module: {
     rules: [
       {
