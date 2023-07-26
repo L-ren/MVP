@@ -12,12 +12,14 @@ router.post('/', async (req, res) => {
   const name = req.body.name;
   const species = req.body.species;
 
+  // get basic plant info from API
   const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=sk-nEde64bf2def48cd51665&q=${species}`)
 
   const plantId = plantInfo.data.data[0].id;
   const sunlight = plantInfo.data.data[0].sunlight;
   const waterFreq = plantInfo.data.data[0].watering;
 
+  // get more info from API
   const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=sk-nEde64bf2def48cd51665`)
 
   const type = morePlantInfo.data.type;
@@ -26,9 +28,9 @@ router.post('/', async (req, res) => {
   const waterDepth = morePlantInfo.data.depth_water_requirement;
   const maintenance = morePlantInfo.data.maintenance;
 
-  console.log(sunlight, waterFreq, type, hardiness, waterPeriod, waterDepth, maintenance);
-  // create plant profile, pass in
-  // controller.createProfile();
+  // write new plant info to db
+  const response = controller.createProfile(plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance);
+  console.log(response);
   res.sendStatus(201);
 })
 
