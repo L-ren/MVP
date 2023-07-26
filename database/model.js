@@ -1,4 +1,4 @@
-const mysql = require('mysql2')
+const mysql = require('mysql2/promise')
 const db = require('./index.js');
 const fs = require('fs');
 const path = require('path');
@@ -10,24 +10,9 @@ const plantSchema = fs.readFileSync(path.join(__dirname, './schema/plantSchema.s
 // MAKE THIS DRYER
 
 const createTables = async () => {
-  db.query(userSchema, (error, results, fields) => {
-    if (error) {
-      console.log(error);
-      return false;
-    }
-  });
-  db.query(hardinessSchema, (error, results, fields) => {
-    if (error) {
-      console.log(error);
-      return false;
-    }
-  });
-  db.query(plantSchema, (error, results, fields) => {
-    if (error) {
-      console.log(error)
-      return false;
-    }
-  });
+  db.query(userSchema).catch(err => console.log(err));
+  db.query(hardinessSchema).catch(err => console.log(err));
+  db.query(plantSchema).catch(err => console.log(err));
   return true;
 }
 
