@@ -4,9 +4,9 @@ import axios from 'axios';
 const AddPlant = () => {
   const [name, setName] = useState('');
   const [species, setSpecies] = useState('');
+
   const onSubmitClick = (e) => {
     e.preventDefault();
-    console.log(name, species);
    // post request to API
     axios.post('http://localhost:3000/', {
       name,

@@ -8,8 +8,8 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-  console.log('post request received');
-  res.status(201).send(req.body);
+  console.log(req.body);
+  res.sendStatus(201);
 })
 
 router.put('/', (req, res) => {
