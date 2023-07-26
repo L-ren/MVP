@@ -10,13 +10,8 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   console.log(req.body);
-  axios.get({
-    url: `https://perenual.com/api/species-list?page=1&key=${process.env.PERENUALKEY}`,
-    params: {
-      ID: 12345
-    }
-  })
-  .then((res) => console.log(res))
+  axios.get(`https://perenual.com/api/species-list?page=1&key=sk-nEde64bf2def48cd51665&q=${req.body.species}`)
+  .then((res) => console.log(res.data))
   .catch((err) => console.log(err));
   // controller.createProfile();
   res.sendStatus(201);
