@@ -3,9 +3,15 @@ const axios = require('axios');
 const controller = require('../database/controller.js');
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  console.log('get request received')
-  res.sendStatus(200);
+router.get('/plants', (req, res) => {
+  controller.getPlants()
+  .then(data => {
+    res.status(200).send(data[0])
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  });
 });
 
 router.post('/', async (req, res) => {
