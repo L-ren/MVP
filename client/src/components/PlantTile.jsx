@@ -20,7 +20,6 @@ const PlantTile = ({ plant, myPlants, setMyPlants }) => {
     setMyPlants(myPlants.filter(plant => (plant.id !== parseInt(id))));
   }
 
-  console.log(plant);
   return (
     <div className={'tile'}>
       <h4>{plant.name}</h4>
