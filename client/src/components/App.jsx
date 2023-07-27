@@ -17,19 +17,6 @@ const App = () => {
       console.log(error);
     });
   }, []);
-  // dry this out
-
-  // ERROR: this infinitely refreshes??
-  // useEffect(() => {
-  //   axios.get('http://localhost:3000/plants')
-  //   .then(function (response) {
-  //     setMyPlants(response.data);
-  //   })
-  //   .catch(function (error) {
-  //     console.log(error);
-  //   });
-  // }, [myPlants]);
-
 
   const addPlant = (e) => {
     console.log('adding plant');

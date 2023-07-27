@@ -17,7 +17,7 @@ const PlantTile = ({ plant, myPlants, setMyPlants }) => {
       console.log(error);
     });
 
-    setMyPlants([...myPlants])
+    setMyPlants(myPlants.filter(plant => (plant.id !== parseInt(id))));
   }
 
   console.log(plant);
