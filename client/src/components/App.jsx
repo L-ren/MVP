@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PlantList from './PlantList.jsx';
 import AddPlant from './AddPlant.jsx';
+import EditPlant from './EditPlant.jsx';
 
 const App = () => {
   const [newPlant, setNewPlant] = useState(false);
@@ -34,12 +35,13 @@ const App = () => {
 
 
   return (
-    <>
+    <div className="main">
       <h2>Plant Talk</h2>
-      <PlantList myPlants={myPlants} setMyPlants={setMyPlants}/>
+      <PlantList myPlants={myPlants} setMyPlants={setMyPlants} setEditPlant={setEditPlant}/>
       <button onClick={addPlant}>Add plant!</button>
       {newPlant && <AddPlant setNewPlant={setNewPlant} />}
-    </>
+      {editPlant && <EditPlant setEditPlant={setEditPlant} />}
+    </div>
   );
 };
 

@@ -1,0 +1,22 @@
+.main {
+  background-color: aliceblue;
+}
+
+.tile {
+  background-color: white;
+}
+
+button {
+  background-color: aquamarine;
+  border: none;
+  border-radius: 0.3em;
+  margin: 0.3em;
+  box-shadow: 0 0.06em 0.3em rgba(0, 0, 0, 0.25);
+}
+
+button:hover {
+  border: 0.12em;
+  font-size: .9em;
+  box-shadow: 0.06em 0.06em 0.3em rgba(0, 0, 0, 0.30);
+  transition: 0.2s;
+}
