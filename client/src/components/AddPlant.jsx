@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const AddPlant = () => {
+const AddPlant = ({ setNewPlant }) => {
   const [name, setName] = useState('');
   const [species, setSpecies] = useState('');
 
@@ -14,6 +14,7 @@ const AddPlant = () => {
     })
     .then(function (response) {
       console.log(response);
+      setNewPlant(false);
     })
     .catch(function (error) {
       console.log(error);

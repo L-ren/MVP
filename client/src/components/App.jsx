@@ -19,9 +19,18 @@ const App = () => {
   }, []);
 
   const addPlant = (e) => {
-    console.log('adding plant');
     setNewPlant(true);
   };
+  // DRY this out later
+  useEffect(() => {
+    axios.get('http://localhost:3000/plants')
+    .then(function (response) {
+      setMyPlants(response.data);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }, [newPlant]);
 
 
   return (
@@ -29,7 +38,7 @@ const App = () => {
       <h2>Plant Talk</h2>
       <PlantList myPlants={myPlants} setMyPlants={setMyPlants}/>
       <button onClick={addPlant}>Add plant!</button>
-      {newPlant && <AddPlant />}
+      {newPlant && <AddPlant setNewPlant={setNewPlant} />}
     </>
   );
 };
