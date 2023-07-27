@@ -22,12 +22,14 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
   return (
     <div className={'tile'}>
       <h4>{plant.name}</h4>
-      {plant.species}
-      {plant.sunlight}
-      {plant.waterFreq}
-      {plant.maintenance}
-      <button onClick={onEdit} className={plant.id}>edit</button>
-      <button onClick={onDelete} className={plant.id}>delete</button>
+      <span>Species: {plant.species}</span>
+      <span>Sunlight: {plant.sunlight}</span>
+      <span>Water Frequency: {plant.waterFreq}</span>
+      <span>Maintenance: {plant.maintenance}</span>
+      <div className = "tileButtons">
+        <button onClick={onEdit} className={plant.id}>edit</button>
+        <button onClick={onDelete} className={plant.id}>delete</button>
+      </div>
     </div>
   );
 };

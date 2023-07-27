@@ -29,7 +29,7 @@ const EditPlant = ({ id, setEditPlant }) => {
         <input type="text" onChange={(e)=>setName(e.target.value)}></input>
         Species:
         <input type="text" onChange={(e)=>setSpecies(e.target.value)} required></input>
-        <input type="submit"></input>
+        <button type="submit">Submit</button>
       </form>
     </div>
   );
