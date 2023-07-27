@@ -11,3 +11,11 @@ module.exports.createProfile = (plantId, name, species, waterFreq, sunlight, har
 
   return db.query(`INSERT INTO plants (perenualId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) VALUES (?)`, [values])
 };
+
+module.exports.editProfile = (plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {
+  console.log('edit request received');
+};
+
+module.exports.deleteProfile = (id) => {
+  return db.query(`DELETE FROM plants WHERE id=${id}`)
+};

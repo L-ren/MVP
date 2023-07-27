@@ -52,7 +52,13 @@ router.post('/plantupdate', (req, res) => {
 })
 
 router.put('/plants', (req, res) => {
-  console.log('put request received');
+  console.log(req.body);
+  controller.editProfile(req.body);
+  res.sendStatus(200);
+})
+
+router.delete('/plants/:id', (req, res) => {
+  controller.deleteProfile(req.params.id);
   res.sendStatus(200);
 })
 

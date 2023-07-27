@@ -1,13 +1,12 @@
 import React from 'react';
 import PlantTile from './PlantTile.jsx';
 
-const PlantList = ({ myPlants }) => {
-  console.log(myPlants)
+const PlantList = ({ myPlants, setEditPlant }) => {
   if (Array.isArray(myPlants)) {
     return (
-      <div>
+      <div className="plantList">
         <h3>My plants</h3>
-        {myPlants.map(plant => <PlantTile plant={plant} />)}
+        {myPlants.map(plant => <PlantTile plant={plant} key={plant.id}/>)}
       </div>
     );
   }
