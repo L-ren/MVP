@@ -5,6 +5,7 @@ import AddPlant from './AddPlant.jsx';
 
 const App = () => {
   const [newPlant, setNewPlant] = useState(false);
+  const [editPlant, setEditPlant] = useState(false);
   const [myPlants, setMyPlants] = useState([]);
 
   useEffect(() => {
