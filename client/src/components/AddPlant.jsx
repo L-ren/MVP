@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import './App.css';
 
 const AddPlant = ({ setNewPlant }) => {
   const [name, setName] = useState('');
@@ -25,12 +26,13 @@ const AddPlant = ({ setNewPlant }) => {
   return (
     <div className="addPlant">
       <h3>Congrats!</h3>
+      <button onClick={() => setNewPlant(false)}>X</button>
       <form onSubmit={onSubmitClick}>
         Name:
         <input type="text" onChange={(e)=>setName(e.target.value)}></input>
         Species:
         <input type="text" onChange={(e)=>setSpecies(e.target.value)} required></input>
-        <input type="submit"></input>
+        <button type="submit" className="submitButton">Submit</button>
       </form>
     </div>
   );

@@ -1,11 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 
-const PlantTile = ({ plant, myPlants, setMyPlants }) => {
+const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
   const onEdit = (e) => {
     const id = e.target.className;
-    // render modal
-    setMyPlants([...myPlants])
+    setEditPlant(true);
   }
   const onDelete = (e) => {
     const id = e.target.className;
