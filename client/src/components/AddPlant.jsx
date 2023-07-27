@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
 import axios from 'axios';
 import './App.css';
 
@@ -23,19 +24,21 @@ const AddPlant = ({ setNewPlant }) => {
   }
 
 
-  return (
-    <div className="addPlant">
-      <h3>Congrats!</h3>
-      <button onClick={() => setNewPlant(false)}>X</button>
-      <form onSubmit={onSubmitClick}>
-        Name:
-        <input type="text" onChange={(e)=>setName(e.target.value)}></input>
-        Species:
-        <input type="text" onChange={(e)=>setSpecies(e.target.value)} required></input>
-        <button type="submit" className="submitButton">Submit</button>
-      </form>
+  return ReactDOM.createPortal((
+    <div className="modalBackground">
+      <div className="addPlant">
+        <button className="xButton" onClick={() => setNewPlant(false)}>X</button>
+        <h3>Congrats!</h3>
+        <form onSubmit={onSubmitClick}>
+          Name:
+          <input type="text" onChange={(e)=>setName(e.target.value)}></input>
+          Species:
+          <input type="text" onChange={(e)=>setSpecies(e.target.value)} required></input>
+          <button type="submit" className="submitButton">Submit</button>
+        </form>
+      </div>
     </div>
-  );
+  ), document.getElementById("portal"));
 };
 
 export default AddPlant;

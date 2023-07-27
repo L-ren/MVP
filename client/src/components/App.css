@@ -1,14 +1,32 @@
 .main {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
   background-color: aliceblue;
   font-family: 'Courier New', monospace;
   padding: 1em;
+  display: flex;
+  flex-direction: row;
 }
 
 .listContainer {
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 50em;
+  height: 90%;
+}
+
+.plantList {
+  overflow: hidden;
+  transition: 0.2s;
+}
+.plantList:hover {
+  overflow-y: scroll;
+  transition: 0.2s;
 }
 
 .tile {
@@ -21,12 +39,32 @@
   flex-direction: column;
   transition: 0.2s;
 }
-
 .tile:hover {
   border: 0.3em;
   margin: .3em;
   transition: 0.2s ease-out;
   font-size: 1.05em;
+}
+
+.tile button {
+  background-color: white;
+  color: white;
+  font-family: 'Courier New', monospace;
+  border: none;
+  border-radius: 0.3em;
+  margin: 0.3em;
+  box-shadow: 0 0.06em 0.3em rgba(0, 0, 0, 0);
+  transition: 0.2s;
+}
+.tile:hover button {
+  background-color: pink;
+  font-family: 'Courier New', monospace;
+  color: black;
+  border: none;
+  border-radius: 0.3em;
+  margin: 0.3em;
+  box-shadow: 0 0.06em 0.3em rgba(0, 0, 0, 0.25);
+  transition: 0.2s;
 }
 
 button {
@@ -38,11 +76,44 @@ button {
   box-shadow: 0 0.06em 0.3em rgba(0, 0, 0, 0.25);
   transition: 0.2s;
 }
-
 button:hover {
   background-color: lightpink;
   border: 0.03em;
   font-size: .82em;
   box-shadow: 0.06em 0.06em 0.3em rgba(0, 0, 0, 0.30);
   transition: 0.2s;
+}
+
+.xButton {
+  background-color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: lightgray;
+  box-shadow: 0 0 rgba(0, 0, 0, 0);
+}
+.xButton:hover {
+  color: gray;
+  font-size: 1.2em;
+  font-weight: 700;
+  background-color: white;
+  box-shadow: 0 0 rgba(0, 0, 0, 0);
+}
+
+.addPlant, .editPlant {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border-radius: 0.5em;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+.modalBackground {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
