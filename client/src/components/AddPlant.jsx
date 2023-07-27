@@ -8,7 +8,7 @@ const AddPlant = () => {
   const onSubmitClick = (e) => {
     e.preventDefault();
    // post request to API
-    axios.post('http://localhost:3000/', {
+    axios.post('http://localhost:3000/plants', {
       name,
       species
     })

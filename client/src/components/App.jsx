@@ -5,11 +5,12 @@ import AddPlant from './AddPlant.jsx';
 
 const App = () => {
   const [newPlant, setNewPlant] = useState(false);
+  const [myPlants, setMyPlants] = useState([]);
 
   useEffect(() => {
     axios.get('http://localhost:3000/plants')
     .then(function (response) {
-      console.log(response.data);
+      setMyPlants(response.data);
     })
     .catch(function (error) {
       console.log(error);
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <>
       <h2>Plant Talk</h2>
-      <PlantList />
+      <PlantList myPlants={myPlants} />
       <button onClick={addPlant}>Add plant!</button>
       {newPlant && <AddPlant />}
     </>

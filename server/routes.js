@@ -14,7 +14,7 @@ router.get('/plants', (req, res) => {
   });
 });
 
-router.post('/', async (req, res) => {
+router.post('/plants', async (req, res) => {
   const name = req.body.name;
   const species = req.body.species;
 
@@ -45,7 +45,13 @@ router.post('/', async (req, res) => {
 
 })
 
-router.put('/', (req, res) => {
+router.post('/plantupdate', (req, res) => {
+  console.log(`arduino ping received!`);
+  console.log(req.body)
+  res.sendStatus(201);
+})
+
+router.put('/plants', (req, res) => {
   console.log('put request received');
   res.sendStatus(200);
 })
