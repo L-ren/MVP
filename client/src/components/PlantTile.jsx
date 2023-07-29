@@ -4,7 +4,7 @@ import axios from 'axios';
 const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
   const onEdit = (e) => {
     const id = e.target.className;
-    setEditPlant(true);
+    setEditPlant(id);
   }
   const onDelete = (e) => {
     const id = e.target.className;
