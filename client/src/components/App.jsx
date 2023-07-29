@@ -31,7 +31,7 @@ const App = () => {
     .catch(function (error) {
       console.log(error);
     });
-  }, [newPlant]);
+  }, [newPlant, editPlant]);
 
 
   return (
