@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-const EditPlant = ({ id, setEditPlant }) => {
+const EditPlant = ({ editPlant, setEditPlant }) => {
   const [name, setName] = useState('');
   const [species, setSpecies] = useState('');
 
@@ -10,11 +10,13 @@ const EditPlant = ({ id, setEditPlant }) => {
     e.preventDefault();
     // post request to API
     axios.put('http://localhost:3000/plants', {
-      id
+      id: editPlant,
+      name,
+      species
     })
     .then(function (response) {
       console.log(response);
-      setEditPlant(false);
+      setEditPlant(0);
     })
     .catch(function (error) {
       console.log(error);

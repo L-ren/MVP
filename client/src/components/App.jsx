@@ -6,7 +6,7 @@ import EditPlant from './EditPlant.jsx';
 
 const App = () => {
   const [newPlant, setNewPlant] = useState(false);
-  const [editPlant, setEditPlant] = useState(false);
+  const [editPlant, setEditPlant] = useState(0);
   const [myPlants, setMyPlants] = useState([]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const App = () => {
       </div>
       <PlantList myPlants={myPlants} setMyPlants={setMyPlants} setEditPlant={setEditPlant}/>
       {newPlant && <AddPlant setNewPlant={setNewPlant} />}
-      {editPlant && <EditPlant setEditPlant={setEditPlant} />}
+      {editPlant && <EditPlant editPlant={editPlant} setEditPlant={setEditPlant} />}
     </div>
   );
 };

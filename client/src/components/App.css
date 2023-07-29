@@ -11,6 +11,11 @@
   flex-direction: row;
 }
 
+.columnLeft {
+  margin-right: 0;
+  text-align: center;
+}
+
 .listContainer {
   display: flex;
   flex-direction: column;
