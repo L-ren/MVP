@@ -28,8 +28,8 @@ const AddPlant = ({ setNewPlant }) => {
     <div className="modalBackground">
       <div className="addPlant">
         <button className="xButton" onClick={() => setNewPlant(false)}>X</button>
-        <h3>Congrats!</h3>
         <form onSubmit={onSubmitClick}>
+        <h3>Congrats!</h3>
           Name:
           <input type="text" onChange={(e)=>setName(e.target.value)}></input>
           Species:

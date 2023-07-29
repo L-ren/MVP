@@ -38,7 +38,7 @@ const App = () => {
     <div className="main">
       <div className="columnLeft">
         <h2>Plant Talk</h2>
-        <button onClick={addPlant}>Add plant!</button>
+        <button onClick={addPlant} className="addButton">Add plant!</button>
       </div>
       <PlantList myPlants={myPlants} setMyPlants={setMyPlants} setEditPlant={setEditPlant}/>
       {newPlant && <AddPlant setNewPlant={setNewPlant} />}
