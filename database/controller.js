@@ -20,3 +20,8 @@ module.exports.editProfile = (id, plantId, name, species, waterFreq, sunlight, h
 module.exports.deleteProfile = (id) => {
   return db.query(`DELETE FROM plants WHERE id=${id}`)
 };
+
+module.exports.saveSensorData = ({id, temp, humidity, light, moisture}) => {
+  const date = new Date();
+  return db.query(`INSERT INTO sensorData (plantId, time, temp, humidity, light, moisture) VALUES (?)`, [[id, date, temp, humidity, light, moisture]]);
+}
