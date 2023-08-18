@@ -48,7 +48,7 @@ router.post('/plants', async (req, res) => {
 router.post('/plantupdate', (req, res) => {
   console.log(`arduino ping received!`);
   console.log(req.body)
-  res.sendStatus(201);
+  res.status(201).send('received');
 })
 
 router.put('/plants', async (req, res) => {
