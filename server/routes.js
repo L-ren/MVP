@@ -46,8 +46,7 @@ router.post('/plants', async (req, res) => {
 })
 
 router.post('/plantupdate', (req, res) => {
-  console.log(`arduino ping received!`);
-  console.log(req.body)
+  controller.saveSensorData(req.body);
   res.status(201).send('received');
 })
 
