@@ -3,7 +3,9 @@ const model = require('./model.js'); // creates tables if not already in db
 
 module.exports.getPlants = () => {
   console.log(`received`);
-  return db.query(`SELECT * FROM plants`)
+  // get most recent plant sensor data
+  // return db.query(`SELECT * FROM plants`); // get info on ALL plants (inc. those without sensor data)
+  return db.query(`SELECT plants.id, name, species, waterFreq, sunlight, hardiness, waterDepth, maintenance, time, temp, humidity, light, moisture FROM plants INNER JOIN sensorData ON plants.id=sensorData.plantId`)
 };
 
 module.exports.createProfile = (plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {
