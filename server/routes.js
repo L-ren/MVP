@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/plants', (req, res) => {
   controller.getPlants()
   .then(data => {
+    console.log(data[0])
     res.status(200).send(data[0])
   })
   .catch(err => {

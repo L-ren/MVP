@@ -5,7 +5,16 @@ module.exports.getPlants = () => {
   console.log(`received`);
   // get most recent plant sensor data
   // return db.query(`SELECT * FROM plants`); // get info on ALL plants (inc. those without sensor data)
-  return db.query(`SELECT plants.id, name, species, waterFreq, sunlight, hardiness, waterDepth, maintenance, time, temp, humidity, light, moisture FROM plants INNER JOIN sensorData ON plants.id=sensorData.plantId WHERE time=(SELECT MAX(time))`)
+  return db.query(`SELECT * FROM sensorData INNER JOIN (SELECT plantId, MAX(time) AS latestTime FROM sensorData GROUP BY plantId) latestData ON sensorData.plantId=latestData.plantId AND sensorData.time=latestData.latestTime`);
+  /* THIS CURRENTLY DOESN'T WORK
+  get info from plants table joined (on matching plant id) with table (generated on query) of latest timestamp data)
+    - select all rows from sensor data where time is in array of latest time stamps of
+  OR
+  create new table for each plant sensor
+
+
+  ** get latest timestamp for each sensor
+  */
 };
 
 module.exports.createProfile = (plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {
