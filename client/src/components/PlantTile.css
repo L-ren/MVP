@@ -1,0 +1,9 @@
+.tileData {
+  display: flex;
+  flex-direction: row;
+}
+
+.staticData, .sensorData {
+  display: flex;
+  flex-direction: column;
+}
