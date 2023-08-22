@@ -12,7 +12,6 @@ const App = () => {
   useEffect(() => {
     axios.get('http://localhost:3000/plants')
     .then(function (response) {
-      console.log(response.data);
       setMyPlants(response.data);
     })
     .catch(function (error) {
