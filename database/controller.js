@@ -34,7 +34,7 @@ module.exports.editProfile = (id, plantId, name, species, waterFreq, sunlight, h
 };
 
 module.exports.deleteProfile = (id) => {
-  return db.query(`DELETE FROM plants WHERE id=${id}`)
+  return db.query(`DELETE FROM plants WHERE id=${id}; DELETE FROM sensorData WHERE plantId=${id}`)
 };
 
 module.exports.saveSensorData = ({id, temp, humidity, light, moisture}) => {
