@@ -3,6 +3,7 @@ import axios from 'axios';
 
 const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
   const onEdit = (e) => {
+    console.log(myPlants);
     const id = e.target.className;
     setEditPlant(id);
   }
@@ -20,12 +21,21 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
   }
 
   return (
-    <div className={'tile'}>
+    <div className='tile'>
       <h4>{plant.name}</h4>
-      <span>Species: {plant.species}</span>
-      <span>Sunlight: {plant.sunlight}</span>
-      <span>Water Frequency: {plant.waterFreq}</span>
-      <span>Maintenance: {plant.maintenance}</span>
+      <h5>{plant.species}</h5>
+      <div className='staticData'>
+        <span>Sunlight: {plant.sunlight}</span>
+        <span>Water Frequency: {plant.waterFreq}</span>
+        <span>Maintenance: {plant.maintenance}</span>
+      </div>
+      <div className='sensorData'>
+        <h5>Current conditions</h5>
+        <span>Temperature: {plant.temp}</span>
+        <span>Humidity: {plant.humidity}</span>
+        <span>Light: {plant.light}</span>
+        <span>Soil Moisture: {plant.moisture}</span>
+      </div>
       <div className = "tileButtons">
         <button onClick={onEdit} className={plant.id}>edit</button>
         <button onClick={onDelete} className={plant.id}>delete</button>
