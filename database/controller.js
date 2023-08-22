@@ -2,19 +2,24 @@ const db = require('./index.js');
 const model = require('./model.js'); // creates tables if not already in db
 
 module.exports.getPlants = () => {
-  console.log(`received`);
+  // return db.query(`SELECT * FROM plants`); // get info on ALL plants, no sensor data
   // get most recent plant sensor data
-  // return db.query(`SELECT * FROM plants`); // get info on ALL plants (inc. those without sensor data)
-  return db.query(`SELECT * FROM sensorData INNER JOIN (SELECT plantId, MAX(time) AS latestTime FROM sensorData GROUP BY plantId) latestData ON sensorData.plantId=latestData.plantId AND sensorData.time=latestData.latestTime`);
-  /* THIS CURRENTLY DOESN'T WORK
-  get info from plants table joined (on matching plant id) with table (generated on query) of latest timestamp data)
-    - select all rows from sensor data where time is in array of latest time stamps of
-  OR
-  create new table for each plant sensor
-
-
-  ** get latest timestamp for each sensor
-  */
+  // CTE FOR latest data for each sensor from sensorData table
+  return db.query(`
+    SELECT *
+    FROM (
+      SELECT sensorData.plantId, temp, humidity, light, moisture, latestTime
+      FROM sensorData
+      INNER JOIN (
+        SELECT plantId, MAX(time)
+        AS latestTime
+        FROM sensorData GROUP BY plantId
+      ) latestIdTime
+      ON sensorData.plantId=latestIdTime.plantId
+      AND sensorData.time=latestIdTime.latestTime)
+    AS latestData
+    INNER JOIN plants
+    ON latestData.plantId=plants.id;`);
 };
 
 module.exports.createProfile = (plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {
