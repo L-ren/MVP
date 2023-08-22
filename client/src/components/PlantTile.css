@@ -1,3 +1,14 @@
+.nameHeading {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+
+.speciesHeading {
+  font-size: 0.85em;
+  margin-bottom: 1em;
+}
+
 .tileData {
   display: flex;
   flex-direction: row;
@@ -6,4 +17,8 @@
 .staticData, .sensorData {
   display: flex;
   flex-direction: column;
+}
+
+.timeStamp {
+  font-size: 0.75em;
 }

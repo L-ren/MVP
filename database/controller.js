@@ -19,7 +19,8 @@ module.exports.getPlants = () => {
       AND sensorData.time=latestIdTime.latestTime)
     AS latestData
     INNER JOIN plants
-    ON latestData.plantId=plants.id;`);
+    ON latestData.plantId=plants.id
+    ORDER BY plants.name ASC;`);
 };
 
 module.exports.createProfile = (plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {

@@ -25,8 +25,8 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
 
   return (
     <div className='tile'>
-      <h4>{plant.name}</h4>
-      <h5>{plant.species}</h5>
+      <span className='nameHeading'>{plant.name}</span>
+      <span className='speciesHeading'>{plant.species}</span>
       <div className='tileData'>
         <div className='staticData'>
           <span>Sunlight: {plant.sunlight}</span>
