@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import './App.css';
 
-const AddPlant = ({ setNewPlant }) => {
+const AddPlant = ({ setNewPlant, setNewPlantManual }) => {
   const [name, setName] = useState('');
   const [species, setSpecies] = useState('');
 
@@ -19,7 +19,11 @@ const AddPlant = ({ setNewPlant }) => {
       setNewPlant(false);
     })
     .catch(function (error) {
-      console.log(error);
+      if (error.response.status === 502) {
+        let plantNameSpecies = error.response.data
+        setNewPlant(false);
+        setNewPlantManual(plantNameSpecies);
+      }
     });
   }
 

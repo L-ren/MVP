@@ -3,8 +3,11 @@ import axios from 'axios';
 import PlantList from './PlantList.jsx';
 import AddPlant from './AddPlant.jsx';
 import EditPlant from './EditPlant.jsx';
+import AddPlantManual from './AddPlantManual.jsx';
 
 const App = () => {
+  // if newPlant submission fails to get plant info from API, pass inputted { name, species } to newPlantManual modal for user to manually fill in care info
+  const [newPlantManual, setNewPlantManual] = useState({});
   const [newPlant, setNewPlant] = useState(false);
   const [editPlant, setEditPlant] = useState(0);
   const [myPlants, setMyPlants] = useState([]);
@@ -41,7 +44,8 @@ const App = () => {
         <button onClick={addPlant} className="addButton">Add plant!</button>
       </div>
       <PlantList myPlants={myPlants} setMyPlants={setMyPlants} setEditPlant={setEditPlant}/>
-      {newPlant && <AddPlant setNewPlant={setNewPlant} />}
+      {newPlant && <AddPlant setNewPlant={setNewPlant} setNewPlantManual={setNewPlantManual} />}
+      {newPlantManual && <AddPlantManual newPlantManual={newPlantManual} setNewPlantManual={setNewPlantManual} />}
       {editPlant && <EditPlant editPlant={editPlant} setEditPlant={setEditPlant} />}
     </div>
   );

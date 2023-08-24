@@ -23,22 +23,31 @@ router.post('/plants', async (req, res) => {
   // get basic plant info from API
   const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
 
+  // check if info is not provided by free API, ask for user to enter it manually
+  let wateringInfo = plantInfo.data.data[0].watering;
+  if (wateringInfo.includes('Upgrade Plans')) {
+    res.status(502).send({ name, species });
+    return;
+  }
+
   // RACKING UP SOME TECH DEBT HERE
   const plantId = plantInfo.data.data[0].id;
   const sunlight = Array.isArray(plantInfo.data.data[0].sunlight) ? plantInfo.data.data[0].sunlight[0]: plantInfo.data.data[0].sunlight;
   const waterFreq = plantInfo.data.data[0].watering;
 
   // get more info from API
-  const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
+  // const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
 
-  const type = undefined; //morePlantInfo.data.type;
-  const hardiness = morePlantInfo.data.hardiness.min;
-  const waterPeriod = morePlantInfo.data.watering_period;
-  const waterDepth = morePlantInfo.data.depth_water_requirement.value ? `${morePlantInfo.data.depth_water_requirement.value} ${morePlantInfo.data.depth_water_requirement.unit}` : `0 inches`;
-  const maintenance = morePlantInfo.data.maintenance;
+  // console.log(morePlantInfo);
+  // const type = undefined; //morePlantInfo.data.type;
+  // const hardiness = morePlantInfo.data.hardiness.min;
+  // const waterPeriod = morePlantInfo.data.watering_period;
+  // const waterDepth = morePlantInfo.data.depth_water_requirement.value ? `${morePlantInfo.data.depth_water_requirement.value} ${morePlantInfo.data.depth_water_requirement.unit}` : `0 inches`;
+  // const maintenance = morePlantInfo.data.maintenance;
 
   // write new plant info to db
-  controller.createProfile(plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance)
+  // , hardiness, type, waterPeriod, waterDepth, maintenance
+  controller.createProfile(plantId, name, species, waterFreq, sunlight)
   .then(() => {
     res.sendStatus(201);
   })
