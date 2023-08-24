@@ -106,7 +106,7 @@ button:hover, .tile button:hover {
   box-shadow: 0 0 rgba(0, 0, 0, 0);
 }
 
-.addPlant, .editPlant {
+.addPlant, .editPlant, .addPlantManual {
   background-color: #fefefe;
   margin: 15% auto;
   padding: 2.2em;
