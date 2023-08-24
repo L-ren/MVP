@@ -2,6 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const controller = require('../database/controller.js');
 const router = express.Router();
+require('dotenv').config()
 
 router.get('/plants', (req, res) => {
   controller.getPlants()
@@ -20,7 +21,7 @@ router.post('/plants', async (req, res) => {
   const species = req.body.species;
 
   // get basic plant info from API
-  const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=sk-nEde64bf2def48cd51665&q=${species}`)
+  const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
 
   // RACKING UP SOME TECH DEBT HERE
   const plantId = plantInfo.data.data[0].id;
@@ -28,7 +29,7 @@ router.post('/plants', async (req, res) => {
   const waterFreq = plantInfo.data.data[0].watering;
 
   // get more info from API
-  const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=sk-nEde64bf2def48cd51665`)
+  const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
 
   const type = undefined; //morePlantInfo.data.type;
   const hardiness = morePlantInfo.data.hardiness.min;
@@ -38,7 +39,9 @@ router.post('/plants', async (req, res) => {
 
   // write new plant info to db
   controller.createProfile(plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance)
-  .then(() => res.sendStatus(201))
+  .then(() => {
+    res.sendStatus(201);
+  })
   .catch(err => {
     console.log(err);
     res.sendStatus(500);
@@ -57,7 +60,7 @@ router.put('/plants', async (req, res) => {
   const species = req.body.species;
 
   // get basic plant info from API
-  const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=sk-nEde64bf2def48cd51665&q=${species}`)
+  const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
 
   // RACKING UP SOME TECH DEBT HERE
   const plantId = plantInfo.data.data[0].id;
@@ -65,7 +68,7 @@ router.put('/plants', async (req, res) => {
   const waterFreq = plantInfo.data.data[0].watering;
 
   // get more info from API
-  const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=sk-nEde64bf2def48cd51665`)
+  const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
 
   const type = undefined; //morePlantInfo.data.type;
   const hardiness = morePlantInfo.data.hardiness.min;
