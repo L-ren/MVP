@@ -13,7 +13,7 @@ const sensorDataSchema = fs.readFileSync(path.join(__dirname, './schema/sensorDa
 
 const createTables = async () => {
   db.query(userSchema).catch(err => console.log(err));
-  db.query(hardinessSchema).catch(err => console.log(err));
+  // db.query(hardinessSchema).catch(err => console.log(err));
   db.query(plantSchema).catch(err => console.log(err));
   db.query(sensorDataSchema).catch(err => console.log(err));
   return true;
