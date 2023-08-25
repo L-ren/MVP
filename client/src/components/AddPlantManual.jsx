@@ -4,8 +4,8 @@ import axios from 'axios';
 import './App.css';
 
 const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
-  const [sunlight, setSunlight] = useState('');
-  const [waterFreq, setWaterFreq] = useState('');
+  const [sunlight, setSunlight] = useState('full sun');
+  const [waterFreq, setWaterFreq] = useState('frequent (1 - 2 weeks)');
 
   const sunlightValues = {
     0: 'part shade',
@@ -45,12 +45,14 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
           <span>Name: {newPlantManual.name}</span>
           <span>Species: {newPlantManual.species}</span>
           <div className="waterFreqSlider">
-            <input type="range" name="waterFreq" min="0" max="3" onChange={(e) => setWaterFreq(waterFreqValues[e.target.value])}></input>
+            <span>Watering: </span>
+            <input type="range" name="waterFreq" min="0" max="3" onChange={(e) => setWaterFreq(waterFreqValues[e.target.value])} required ></input>
             {/* <label htmlFor="waterFreq">WaterFreq</label> */}
             <div>{waterFreq || 'slide scale to watering frequency'}</div>
           </div>
           <div className="sunlightSlider">
-            <input type="range" name="sunlight" min="0" max="3" onChange={(e) => setSunlight(sunlightValues[e.target.value])}></input>
+            <span>Sunlight: </span>
+            <input type="range" name="sunlight" min="0" max="3" onChange={(e) => setSunlight(sunlightValues[e.target.value])} required ></input>
             {/* <label htmlFor="sunlight">Sunlight</label> */}
             <div>{sunlight || 'slide scale to sunlight level'}</div>
           </div>
