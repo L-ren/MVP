@@ -21,7 +21,7 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
 
   const onSubmitClick = (e) => {
     e.preventDefault();
-    console.log('manual plant input submitted');
+    console.log(`${newPlantManual.name}, ${newPlantManual.species}, ${watering}, ${sunlight}`);
     // create new server path for manual input
   };
 
@@ -34,12 +34,14 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
           <span>Name: {newPlantManual.name}</span>
           <span>Species: {newPlantManual.species}</span>
           <div className="wateringSlider">
-            <input type="range" name="watering" min="0" max="3" onChange={(e) => console.log(e.target.value)}></input>
-            <label htmlFor="watering">Watering</label>
+            <input type="range" name="watering" min="0" max="3" onChange={(e) => setWatering(wateringValues[e.target.value])}></input>
+            {/* <label htmlFor="watering">Watering</label> */}
+            <div>{watering || 'slide scale to watering frequency'}</div>
           </div>
           <div className="sunlightSlider">
-            <input type="range" name="sunlight" min="0" max="3" onChange={(e) => console.log(e.target.value)}></input>
-            <label htmlFor="sunlight">Sunlight</label>
+            <input type="range" name="sunlight" min="0" max="3" onChange={(e) => setSunlight(sunlightValues[e.target.value])}></input>
+            {/* <label htmlFor="sunlight">Sunlight</label> */}
+            <div>{sunlight || 'slide scale to sunlight level'}</div>
           </div>
 
           <button type="submit" className="submitButton">Submit</button>
