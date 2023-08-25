@@ -21,8 +21,8 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
 
   const onSubmitClick = (e) => {
     e.preventDefault();
-    console.log(`${newPlantManual.name}, ${newPlantManual.species}, ${watering}, ${sunlight}`);
-    // create new server path for manual input
+    // console.log(`${newPlantManual.name}, ${newPlantManual.species}, ${watering}, ${sunlight}`);
+    console.log(`create server path for manually entered plant information`)
   };
 
   return ReactDOM.createPortal((
