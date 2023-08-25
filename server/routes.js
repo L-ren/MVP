@@ -36,18 +36,17 @@ router.post('/plants', async (req, res) => {
   const waterFreq = plantInfo.data.data[0].watering;
 
   // get more info from API
-  // const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
+  const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
 
-  // console.log(morePlantInfo);
-  // const type = undefined; //morePlantInfo.data.type;
-  // const hardiness = morePlantInfo.data.hardiness.min;
-  // const waterPeriod = morePlantInfo.data.watering_period;
-  // const waterDepth = morePlantInfo.data.depth_water_requirement.value ? `${morePlantInfo.data.depth_water_requirement.value} ${morePlantInfo.data.depth_water_requirement.unit}` : `0 inches`;
-  // const maintenance = morePlantInfo.data.maintenance;
+  console.log(morePlantInfo);
+  const type = undefined; //morePlantInfo.data.type;
+  const hardiness = morePlantInfo.data.hardiness.min;
+  const waterPeriod = morePlantInfo.data.watering_period;
+  const waterDepth = morePlantInfo.data.depth_water_requirement.value ? `${morePlantInfo.data.depth_water_requirement.value} ${morePlantInfo.data.depth_water_requirement.unit}` : `0 inches`;
+  const maintenance = morePlantInfo.data.maintenance;
 
   // write new plant info to db
-  // , hardiness, type, waterPeriod, waterDepth, maintenance
-  controller.createProfile(plantId, name, species, waterFreq, sunlight)
+  controller.createProfile(plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance)
   .then(() => {
     res.sendStatus(201);
   })

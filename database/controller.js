@@ -4,6 +4,10 @@ const model = require('./model.js'); // creates tables if not already in db
 module.exports.getPlants = () => {
   // return db.query(`SELECT * FROM plants`); // get info on ALL plants, no sensor data
   // get most recent plant sensor data
+
+  // ALSO*** GET DAILY summary update data
+
+
   // CTE FOR latest data for each sensor from sensorData table
   return db.query(`
     SELECT *
@@ -39,6 +43,10 @@ module.exports.deleteProfile = (id) => {
 };
 
 module.exports.saveSensorData = ({id, temp, humidity, light, moisture}) => {
+  // MUST ALSO WRITE TO DAILY SUMMARY TABLE
+
+
+
   const rawDate = new Date();
   const date = rawDate.toISOString().slice(0, 19).replace('T', ' ');
   return db.query(`INSERT INTO sensorData (plantId, time, temp, humidity, light, moisture) VALUES (?)`, [[id, date, temp, humidity, light, moisture]]);
