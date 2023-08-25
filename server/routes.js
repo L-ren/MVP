@@ -19,14 +19,10 @@ router.get('/plants', (req, res) => {
 router.post('/plants', async (req, res) => {
   const name = req.body.name;
   const species = req.body.species;
+  const waterFreq = req.body.waterFreq;
+  const sunlight = req.body.sunlight;
 
-  if (req.body.sunlight) {
-    // if request body contains manually inputted care info, do not request API and write info direct to db
-    console.log('manuall input detected!!')
-    res.sendStatus(201);
-    return;
-
-  } else {
+  if (!req.body.sunlight) {
     // otherwise, request basic plant info from API
     const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
 
@@ -37,13 +33,13 @@ router.post('/plants', async (req, res) => {
       return;
     }
 
-    const plantId = plantInfo.data.data[0].id;
+    // const plantId = plantInfo.data.data[0].id;
     const sunlight = Array.isArray(plantInfo.data.data[0].sunlight) ? plantInfo.data.data[0].sunlight[0]: plantInfo.data.data[0].sunlight;
     const waterFreq = plantInfo.data.data[0].watering;
   }
 
   // write plant info to database
-  controller.createProfile(plantId, name, species, waterFreq, sunlight)
+  controller.createProfile(name, species, waterFreq, sunlight)
   .then(() => {
     res.sendStatus(201);
   })
@@ -53,26 +49,6 @@ router.post('/plants', async (req, res) => {
   });
 
   /* NO LONGER RETRIEVES ADD'L INFO FROM API SINCE IT ISN'T FREE */
-
-  // // get more info from API
-  // const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
-
-  // console.log(morePlantInfo);
-  // const type = undefined; // morePlantInfo.data.type;
-  // const hardiness = morePlantInfo.data.hardiness.min;
-  // const waterPeriod = morePlantInfo.data.watering_period;
-  // const waterDepth = morePlantInfo.data.depth_water_requirement.value ? `${morePlantInfo.data.depth_water_requirement.value} ${morePlantInfo.data.depth_water_requirement.unit}` : `0 inches`;
-  // const maintenance = morePlantInfo.data.maintenance;
-
-  // write new plant info to db
-  // controller.createProfile(plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance)
-  // .then(() => {
-  //   res.sendStatus(201);
-  // })
-  // .catch(err => {
-  //   console.log(err);
-  //   res.sendStatus(500);
-  // });
 })
 
 router.post('/plantupdate', (req, res) => {

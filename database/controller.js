@@ -27,10 +27,10 @@ module.exports.getPlants = () => {
     ORDER BY plants.name ASC;`);
 };
 
-module.exports.createProfile = (plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {
-  let values = [plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance];
+module.exports.createProfile = (name, species, waterFreq, sunlight) => {
+  let values = [name, species, waterFreq, sunlight];
   let date = new Date();
-  return db.query(`INSERT INTO plants (perenualId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) VALUES (?); INSERT INTO sensorData (plantId, time) VALUES (LAST_INSERT_ID(), '${date.toISOString().slice(0, 19).replace('T', ' ')}');`, [values])
+  return db.query(`INSERT INTO plants (name, species, waterFreq, sunlight) VALUES (?); INSERT INTO sensorData (plantId, time) VALUES (LAST_INSERT_ID(), '${date.toISOString().slice(0, 19).replace('T', ' ')}');`, [values])
 };
 
 // module.exports.editProfile = (id, plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {

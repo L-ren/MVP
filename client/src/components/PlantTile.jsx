@@ -69,7 +69,7 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
       <div className='tileData'>
         <div className='staticData'>
           <span>Sunlight: {plant.sunlight}</span>
-          <span>Water Frequency: {plant.waterFreq}</span>
+          <span>Watering: {plant.waterFreq}</span>
           {/* <span>Maintenance: {plant.maintenance}</span> */}
         </div>
         {/* only show live data if available */}
