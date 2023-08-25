@@ -45,7 +45,7 @@ const App = () => {
       </div>
       <PlantList myPlants={myPlants} setMyPlants={setMyPlants} setEditPlant={setEditPlant}/>
       {newPlant && <AddPlant setNewPlant={setNewPlant} setNewPlantManual={setNewPlantManual} />}
-      {newPlantManual && <AddPlantManual newPlantManual={newPlantManual} setNewPlantManual={setNewPlantManual} />}
+      {newPlantManual.name && <AddPlantManual newPlantManual={newPlantManual} setNewPlantManual={setNewPlantManual} />}
       {editPlant && <EditPlant editPlant={editPlant} setEditPlant={setEditPlant} />}
     </div>
   );
