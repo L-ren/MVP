@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import './App.css';
 
 const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
   const [sunlight, setSunlight] = useState('');
-  const [watering, setWatering] = useState('');
+  const [waterFreq, setWaterFreq] = useState('');
 
   const sunlightValues = {
     0: 'part shade',
@@ -12,7 +13,7 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
     2: 'part sun',
     3: 'full sun',
   };
-  const wateringValues = {
+  const waterFreqValues = {
     0: 'none',
     1: 'minimal (4 - 6 weeks)',
     2: 'average (2 - 4 weeks)',
@@ -21,8 +22,18 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
 
   const onSubmitClick = (e) => {
     e.preventDefault();
-    // console.log(`${newPlantManual.name}, ${newPlantManual.species}, ${watering}, ${sunlight}`);
-    console.log(`create server path for manually entered plant information`)
+    const name = newPlantManual.name;
+    const species = newPlantManual.species;
+    console.log(`${newPlantManual.name}, ${newPlantManual.species}, ${waterFreq}, ${sunlight}`);
+    axios.post('http://localhost:3000/plants', {
+      name,
+      species,
+      sunlight,
+      waterFreq,
+    }).then((res) => {
+      console.log(res);
+      setNewPlantManual({});
+    }).catch((err) => console.log(err));
   };
 
   return ReactDOM.createPortal((
@@ -33,10 +44,10 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
         <h3>Please Manually Input Plant Care info</h3>
           <span>Name: {newPlantManual.name}</span>
           <span>Species: {newPlantManual.species}</span>
-          <div className="wateringSlider">
-            <input type="range" name="watering" min="0" max="3" onChange={(e) => setWatering(wateringValues[e.target.value])}></input>
-            {/* <label htmlFor="watering">Watering</label> */}
-            <div>{watering || 'slide scale to watering frequency'}</div>
+          <div className="waterFreqSlider">
+            <input type="range" name="waterFreq" min="0" max="3" onChange={(e) => setWaterFreq(waterFreqValues[e.target.value])}></input>
+            {/* <label htmlFor="waterFreq">WaterFreq</label> */}
+            <div>{waterFreq || 'slide scale to watering frequency'}</div>
           </div>
           <div className="sunlightSlider">
             <input type="range" name="sunlight" min="0" max="3" onChange={(e) => setSunlight(sunlightValues[e.target.value])}></input>
