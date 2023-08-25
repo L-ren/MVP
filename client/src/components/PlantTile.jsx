@@ -38,9 +38,11 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
     .catch(function (error) {
       console.log(error);
     });
-    // setMyPlants(myPlants.filter(plant => {
-    //   return plant.id !== parseInt(id)
-    // }));
+
+    setMyPlants(myPlants.filter(plant => {
+      // remove tile of deleted plant from DOM
+      return plant.id !== parseInt(id)
+    }));
     };
 
     // { zone: [ minTemp, maxTemp ] }

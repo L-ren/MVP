@@ -47,6 +47,7 @@ module.exports.saveSensorData = ({id, temp, humidity, light, moisture}) => {
 
 
 
+
   const rawDate = new Date();
   const date = rawDate.toISOString().slice(0, 19).replace('T', ' ');
   return db.query(`INSERT INTO sensorData (plantId, time, temp, humidity, light, moisture) VALUES (?)`, [[id, date, temp, humidity, light, moisture]]);

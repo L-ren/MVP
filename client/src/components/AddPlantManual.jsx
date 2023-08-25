@@ -3,9 +3,21 @@ import ReactDOM from 'react-dom';
 import './App.css';
 
 const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
-  const [sunlight, setSunlight] = useState(''); // sliding scale
-  const [watering, setWatering] = useState(''); // sliding scale
-  /* CREATE SLIDER FOR SUNLIGHT/WATERING NEEDS */
+  const [sunlight, setSunlight] = useState('');
+  const [watering, setWatering] = useState('');
+
+  const sunlightValues = {
+    0: 'part shade',
+    1: 'part sun - part shade',
+    2: 'part sun',
+    3: 'full sun',
+  };
+  const wateringValues = {
+    0: 'none',
+    1: 'minimal (4 - 6 weeks)',
+    2: 'average (2 - 4 weeks)',
+    3: 'frequent (1 - 2 weeks)'
+  };
 
   const onSubmitClick = (e) => {
     e.preventDefault();
@@ -21,8 +33,15 @@ const AddPlantManual = ({ newPlantManual, setNewPlantManual }) => {
         <h3>Please Manually Input Plant Care info</h3>
           <span>Name: {newPlantManual.name}</span>
           <span>Species: {newPlantManual.species}</span>
-          Sunlight: <input type="text" onChange={(e)=>setSunlight(e.target.value)}></input>
-          Watering: <input type="text" onChange={(e)=>setWatering(e.target.value)} required></input>
+          <div className="wateringSlider">
+            <input type="range" name="watering" min="0" max="3" onChange={(e) => console.log(e.target.value)}></input>
+            <label htmlFor="watering">Watering</label>
+          </div>
+          <div className="sunlightSlider">
+            <input type="range" name="sunlight" min="0" max="3" onChange={(e) => console.log(e.target.value)}></input>
+            <label htmlFor="sunlight">Sunlight</label>
+          </div>
+
           <button type="submit" className="submitButton">Submit</button>
         </form>
       </div>
