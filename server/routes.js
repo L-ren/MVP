@@ -20,33 +20,30 @@ router.post('/plants', async (req, res) => {
   const name = req.body.name;
   const species = req.body.species;
 
-  // get basic plant info from API
-  const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
-
-  // check if care info is provided by free API, if not then return name and species for user to enter info manually
-  let wateringInfo = plantInfo.data.data[0].watering;
-  if (wateringInfo.includes('Upgrade Plans')) {
-    res.status(502).send({ name, species });
+  if (req.body.sunlight) {
+    // if request body contains manually inputted care info, do not request API and write info direct to db
+    console.log('manuall input detected!!')
+    res.sendStatus(201);
     return;
+
+  } else {
+    // otherwise, request basic plant info from API
+    const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
+
+    // if care info is NOT provided by free API, return name and species for user to enter care info manually
+    let wateringInfo = plantInfo.data.data[0].watering;
+    if (wateringInfo.includes('Upgrade Plans')) {
+      res.status(502).send({ name, species });
+      return;
+    }
+
+    const plantId = plantInfo.data.data[0].id;
+    const sunlight = Array.isArray(plantInfo.data.data[0].sunlight) ? plantInfo.data.data[0].sunlight[0]: plantInfo.data.data[0].sunlight;
+    const waterFreq = plantInfo.data.data[0].watering;
   }
 
-  // RACKING UP SOME TECH DEBT HERE
-  const plantId = plantInfo.data.data[0].id;
-  const sunlight = Array.isArray(plantInfo.data.data[0].sunlight) ? plantInfo.data.data[0].sunlight[0]: plantInfo.data.data[0].sunlight;
-  const waterFreq = plantInfo.data.data[0].watering;
-
-  // get more info from API
-  const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
-
-  console.log(morePlantInfo);
-  const type = undefined; // morePlantInfo.data.type;
-  const hardiness = morePlantInfo.data.hardiness.min;
-  const waterPeriod = morePlantInfo.data.watering_period;
-  const waterDepth = morePlantInfo.data.depth_water_requirement.value ? `${morePlantInfo.data.depth_water_requirement.value} ${morePlantInfo.data.depth_water_requirement.unit}` : `0 inches`;
-  const maintenance = morePlantInfo.data.maintenance;
-
-  // write new plant info to db
-  controller.createProfile(plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance)
+  // write plant info to database
+  controller.createProfile(plantId, name, species, waterFreq, sunlight)
   .then(() => {
     res.sendStatus(201);
   })
@@ -54,6 +51,28 @@ router.post('/plants', async (req, res) => {
     console.log(err);
     res.sendStatus(500);
   });
+
+  /* NO LONGER RETRIEVES ADD'L INFO FROM API SINCE IT ISN'T FREE */
+
+  // // get more info from API
+  // const morePlantInfo = await axios.get(`https://perenual.com/api/species/details/${[plantId]}?key=${process.env.PLANT}`)
+
+  // console.log(morePlantInfo);
+  // const type = undefined; // morePlantInfo.data.type;
+  // const hardiness = morePlantInfo.data.hardiness.min;
+  // const waterPeriod = morePlantInfo.data.watering_period;
+  // const waterDepth = morePlantInfo.data.depth_water_requirement.value ? `${morePlantInfo.data.depth_water_requirement.value} ${morePlantInfo.data.depth_water_requirement.unit}` : `0 inches`;
+  // const maintenance = morePlantInfo.data.maintenance;
+
+  // write new plant info to db
+  // controller.createProfile(plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance)
+  // .then(() => {
+  //   res.sendStatus(201);
+  // })
+  // .catch(err => {
+  //   console.log(err);
+  //   res.sendStatus(500);
+  // });
 })
 
 router.post('/plantupdate', (req, res) => {
