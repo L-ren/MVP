@@ -19,10 +19,10 @@ router.get('/plants', (req, res) => {
 router.post('/plants', async (req, res) => {
   const name = req.body.name;
   const species = req.body.species;
-  const waterFreq = req.body.waterFreq;
-  const sunlight = req.body.sunlight;
+  let waterFreq = req.body.waterFreq;
+  let sunlight = req.body.sunlight;
 
-  if (!req.body.sunlight) {
+  if (req.body.sunlight === undefined) {
     // otherwise, request basic plant info from API
     const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
 
@@ -34,8 +34,9 @@ router.post('/plants', async (req, res) => {
     }
 
     // const plantId = plantInfo.data.data[0].id;
-    const sunlight = Array.isArray(plantInfo.data.data[0].sunlight) ? plantInfo.data.data[0].sunlight[0]: plantInfo.data.data[0].sunlight;
-    const waterFreq = plantInfo.data.data[0].watering;
+    sunlight = Array.isArray(plantInfo.data.data[0].sunlight) ? plantInfo.data.data[0].sunlight[0]: plantInfo.data.data[0].sunlight;
+    console.log(sunlight);
+    waterFreq = plantInfo.data.data[0].watering;
   }
 
   // write plant info to database

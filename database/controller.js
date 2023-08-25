@@ -33,11 +33,6 @@ module.exports.createProfile = (name, species, waterFreq, sunlight) => {
   return db.query(`INSERT INTO plants (name, species, waterFreq, sunlight) VALUES (?); INSERT INTO sensorData (plantId, time) VALUES (LAST_INSERT_ID(), '${date.toISOString().slice(0, 19).replace('T', ' ')}');`, [values])
 };
 
-// module.exports.editProfile = (id, plantId, name, species, waterFreq, sunlight, hardiness, type, waterPeriod, waterDepth, maintenance) => {
-//   console.log(id);
-//   return db.query(`UPDATE plants SET perenualId=${plantId}, name='${name}', species='${species}', waterFreq='${waterFreq}', sunlight='${sunlight}', hardiness=${hardiness}, type='${type}', waterPeriod='${waterPeriod}', waterDepth='${waterDepth}', maintenance='${maintenance}' WHERE id=${id}`);
-// };
-
 module.exports.editProfile = (id, name) => {
   console.log(id);
   return db.query(`UPDATE plants SET name='${name}' WHERE id=${id}`);
