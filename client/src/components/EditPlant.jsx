@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const EditPlant = ({ editPlant, setEditPlant }) => {
   const [name, setName] = useState('');
-  const [species, setSpecies] = useState('');
+  // const [species, setSpecies] = useState('');
 
   const onSubmitClick = (e) => {
     e.preventDefault();
@@ -12,7 +12,7 @@ const EditPlant = ({ editPlant, setEditPlant }) => {
     axios.put('http://localhost:3000/plants', {
       id: editPlant,
       name,
-      species
+      // species
     })
     .then(function (response) {
       console.log(response);
@@ -27,12 +27,12 @@ const EditPlant = ({ editPlant, setEditPlant }) => {
     <div className="modalBackground">
       <div className="editPlant">
         <button className="xButton" onClick={() => setEditPlant(false)}>X</button>
-        <h3>Congrats!</h3>
+        <h3>Rename your plant?</h3>
         <form onSubmit={onSubmitClick}>
           Name:
           <input type="text" onChange={(e)=>setName(e.target.value)}></input>
-          Species:
-          <input type="text" onChange={(e)=>setSpecies(e.target.value)} required></input>
+          {/* Species:
+          <input type="text" onChange={(e)=>setSpecies(e.target.value)} required></input> */}
           <button type="submit" className="submitButton">Submit</button>
         </form>
       </div>
