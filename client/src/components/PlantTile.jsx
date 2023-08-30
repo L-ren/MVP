@@ -7,8 +7,12 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
   const [ alert, setAlert ] = useState(false);
   const [ message, setMessage ] = useState('');
   const [ dataTimestamp, setDataTimestamp] = useState('');
+  const [ sensorData, setSensorData ] = useState(false);
 
   useEffect(() => {
+    if (plant.temp) {
+      setSensorData(true);
+    }
     // check temp reading
     if (plant.temp < 65) {
       setMessage((plant.temp < 50) ? `A BIT TOO COLD!!`: `a little chilly`);
@@ -67,13 +71,7 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
       <span className='nameHeading'>{plant.name}</span>
       <span className='speciesHeading'>{plant.species}</span>
       <div className='tileData'>
-        <div className='staticData'>
-          <span>Sunlight: {plant.sunlight}</span>
-          <span>Watering: {plant.waterFreq}</span>
-          {/* <span>Maintenance: {plant.maintenance}</span> */}
-        </div>
-        {/* only show live data if available */}
-        { (plant.temp && plant.light && plant.moisture) &&
+        { sensorData &&
         <div className='sensorData'>
           {/* <h5>Current conditions</h5> */}
           <span>Temperature: {plant.temp} {message}</span>
@@ -82,6 +80,7 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
           <span>Soil Moisture: {plant.moisture}</span>
           <span className='timeStamp'>Conditions as of {dataTimestamp}</span>
         </div>}
+        {! sensorData && <span>No sensor data</span>}
       </div>
       <div className = "tileButtons">
         <button onClick={onEdit} className={plant.id}>edit</button>
