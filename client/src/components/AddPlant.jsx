@@ -21,7 +21,7 @@ const AddPlant = ({ setNewPlant, setNewPlantManual }) => {
     .catch(function (error) {
       console.log(error);
       if (error.response.status === 502) {
-        // let plantNameSpecies = error.response.data
+        let plantNameSpecies = error.response.data
         setNewPlant(false);
         setNewPlantManual(plantNameSpecies);
       }
