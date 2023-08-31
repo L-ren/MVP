@@ -5,6 +5,7 @@ const router = express.Router();
 require('dotenv').config()
 
 router.get('/plants', (req, res) => {
+
   controller.getPlants()
   .then(data => {
     console.log(data[0])
@@ -51,8 +52,15 @@ router.post('/plants', async (req, res) => {
 })
 
 router.post('/plantupdate', (req, res) => {
-  controller.saveSensorData(req.body);
-  res.status(201).send('received');
+  controller.saveSensorData(req.body)
+  .then(() => {
+    res.status(201).send('received');
+  })
+  .catch(err => {
+    console.log(err);
+    res.sendStatus(500);
+  })
+
 })
 
 router.put('/plants', async (req, res) => {

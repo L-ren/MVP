@@ -11,3 +11,13 @@ CREATE TABLE IF NOT EXISTS summary (
   FOREIGN KEY (plantId)
     REFERENCES plants(id)
 );
+
+
+-- select MAX, MIN temp + MAX sun for each plantId row within DATE
+
+-- SELECT plantId, MAX(temp) AS maxTemp
+-- FROM sensorData
+-- WHERE time
+-- GROUP BY plantId
+
+
