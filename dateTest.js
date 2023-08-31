@@ -12,10 +12,12 @@ console.log(todayStart);
 console.log(todayEnd);
 
 (async function testQuery() {
+  // selects max temp for each plant
   const result = await db.query(`
-    SELECT *
+    SELECT plantId, MAX(temp) AS maxTemp, MIN(temp) AS minTemp, MAX(light) as maxSunlight
     FROM sensorData
-    WHERE time BETWEEN '${todayStart}' AND '${todayEnd}';
+    WHERE time BETWEEN '${todayStart}' AND '${todayEnd}'
+    GROUP BY plantId;
   `);
   console.log(result[0]);
   })();
