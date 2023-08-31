@@ -6,11 +6,15 @@ import EditPlant from './EditPlant.jsx';
 import AddPlantManual from './AddPlantManual.jsx';
 
 const App = () => {
-  // if newPlant submission fails to get plant info from API, pass inputted { name, species } to newPlantManual modal for user to manually fill in care info
+  // if newPlant submission fails to get plant info from API, pass user inputted { name, species } to newPlantManual modal for user to manually fill in care info
   const [newPlantManual, setNewPlantManual] = useState({});
   const [newPlant, setNewPlant] = useState(false);
   const [editPlant, setEditPlant] = useState(0);
   const [myPlants, setMyPlants] = useState([]);
+
+  const addPlant = (e) => {
+    setNewPlant(true);
+  };
 
   useEffect(() => {
     axios.get('http://localhost:3000/plants')
@@ -22,10 +26,6 @@ const App = () => {
     });
   }, []);
 
-  const addPlant = (e) => {
-    setNewPlant(true);
-  };
-  // DRY this out later
   useEffect(() => {
     axios.get('http://localhost:3000/plants')
     .then(function (response) {
