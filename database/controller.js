@@ -3,40 +3,43 @@ const model = require('./model.js'); // creates tables if not already in db
 const dayjs = require('dayjs');
 
 module.exports.getPlants = () => {
-  // return db.query(`SELECT * FROM plants`); // get info on ALL plants, no sensor data
   // get most recent plant sensor data
 
-  // ALSO*** GET DAILY summary update data
+  // query YESTERDAY's DATA
+  //  let startDate = dayjs().add(-1, 'day').startOf('date').format();
+  //  let endDate = dayjs().add(-1, 'day').endOf('date').format();
 
-    // CTE FOR latest data for each sensor from sensorData table
-  // return db.query(`
-  // SELECT *
-  // FROM (
-  //   SELECT *
-  //   FROM (
-  //     SELECT sensorData.plantId, temp, humidity, light, moisture, latestTime
-  //     FROM sensorData
-  //     INNER JOIN (
-  //       SELECT plantId, MAX(time) AS latestTime
-  //       FROM sensorData GROUP BY plantId
-  //     ) latestIdTime
-  //     ON sensorData.plantId=latestIdTime.plantId
-  //     AND sensorData.time=latestIdTime.latestTime
-  //   )
-  //   AS latestData
-  //   INNER JOIN plants
-  //   ON latestData.plantId=plants.id
-  //   ORDER BY plants.name ASC;
-  // )
-  // AS currentData
-  // INNER JOIN (
-  //   SELECT * FROM summary
-  //   INNER JOIN (
-  //     SELECT plantId, MAX
-  //   )
-  // )
-  // `
-  //   );
+  let startDate = dayjs().startOf('date').format();
+  let endDate = dayjs().endOf('date').format();
+
+
+  return db.query(`
+    SELECT *
+    FROM (
+      SELECT *
+      FROM (
+        SELECT sensorData.plantId, temp, humidity, light, moisture, latestTime
+        FROM sensorData
+        INNER JOIN (
+          SELECT plantId, MAX(time) AS latestTime
+          FROM sensorData GROUP BY plantId
+        ) latestIdTime
+        ON sensorData.plantId=latestIdTime.plantId
+        AND sensorData.time=latestIdTime.latestTime
+      ) AS latestData
+      INNER JOIN plants
+      ON latestData.plantId=plants.id
+    ) AS currentData
+    INNER JOIN (
+      SELECT plantId, MAX(temp) AS maxTemp, MIN(temp) AS minTemp, MAX(light) as maxSunlight
+      FROM sensorData
+      WHERE time BETWEEN '${startDate}' AND '${endDate}'
+      GROUP BY plantId
+    ) yesterdaysData
+    ON currentData.plantId=yesterdaysData.plantId
+    ORDER BY plants.name ASC;;
+    `
+  );
 
 
   // CTE FOR latest data for each sensor from sensorData table
