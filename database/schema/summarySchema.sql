@@ -13,11 +13,4 @@ CREATE TABLE IF NOT EXISTS summary (
 );
 
 
--- select MAX, MIN temp + MAX sun for each plantId row within DATE
-
--- SELECT plantId, MAX(temp) AS maxTemp
--- FROM sensorData
--- WHERE time
--- GROUP BY plantId
-
 
