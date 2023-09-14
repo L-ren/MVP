@@ -27,8 +27,8 @@ router.post('/plants', async (req, res) => {
     // otherwise, request basic plant info from API
     const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
     // if care info is NOT provided by free API, return name and species for user to enter care info manually
-    let wateringInfo = plantInfo.data.data[0].watering;
-    if ((wateringInfo.includes('Upgrade Plans')) || (wateringInfo === undefined)) {
+    let plantData = plantInfo.data.data[0];
+    if ((plantData === undefined) || (plantData.watering.includes('Upgrade Plans'))) {
       res.status(502).send({ name, species });
       return;
     }
