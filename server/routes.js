@@ -8,14 +8,26 @@ router.get('/plants', (req, res) => {
 
   controller.getPlants()
   .then(data => {
-    console.log(data[0])
-    res.status(200).send(data[0])
+    console.log(data[0]);
+    res.status(200).send(data[0]);
   })
   .catch(err => {
     console.log(err);
     res.sendStatus(500);
   });
 });
+
+router.get('/watered/:id', (req, res) => {
+  const id = req.params.id;
+  controller.lastWatered(id)
+    .then(data => {
+      res.status(200).send(data);
+    })
+    .catch(err => {
+      console.log(err);
+      res.sendStatus(500);
+    });
+})
 
 router.post('/plants', async (req, res) => {
   const name = req.body.name;
@@ -24,7 +36,7 @@ router.post('/plants', async (req, res) => {
   let sunlight = req.body.sunlight;
 
   if (req.body.sunlight === undefined) {
-    // otherwise, request basic plant info from API
+    // if user inputted care info not provided, request basic plant info from API
     const plantInfo = await axios.get(`https://perenual.com/api/species-list?page=1&key=${process.env.PLANT}&q=${species}`)
     // if care info is NOT provided by free API, return name and species for user to enter care info manually
     let plantData = plantInfo.data.data[0];

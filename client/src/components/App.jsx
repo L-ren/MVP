@@ -12,6 +12,8 @@ const App = () => {
   const [editPlant, setEditPlant] = useState(0);
   const [myPlants, setMyPlants] = useState([]);
 
+  const [edit, setEdit] = useState(true);
+
   const addPlant = (e) => {
     setNewPlant(true);
   };
@@ -41,10 +43,10 @@ const App = () => {
   return (
     <div className="main">
       <div className="columnLeft">
-        <h2>Plant Talk</h2>
-        <button onClick={addPlant} className="addButton">Add plant!</button>
+        {/* <h2>Plant Talk</h2> */}
+        {edit && <button onClick={addPlant} className="addButton">Add plant!</button>}
       </div>
-      <PlantList myPlants={myPlants} setMyPlants={setMyPlants} setEditPlant={setEditPlant}/>
+      <PlantList myPlants={myPlants} setMyPlants={setMyPlants} setEditPlant={setEditPlant} edit={edit}/>
       {newPlant && <AddPlant setNewPlant={setNewPlant} setNewPlantManual={setNewPlantManual} />}
       {newPlantManual.name && <AddPlantManual newPlantManual={newPlantManual} setNewPlantManual={setNewPlantManual} />}
       {editPlant && <EditPlant editPlant={editPlant} setEditPlant={setEditPlant} />}

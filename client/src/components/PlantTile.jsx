@@ -3,7 +3,7 @@ import axios from 'axios';
 import dayjs from 'dayjs';
 import './PlantTile.css'
 
-const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
+const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant, edit }) => {
   const [ alert, setAlert ] = useState(false);
   const [ message, setMessage ] = useState('');
   const [ dataTimestamp, setDataTimestamp] = useState('');
@@ -82,10 +82,12 @@ const PlantTile = ({ plant, myPlants, setMyPlants, setEditPlant }) => {
         </div>}
         {! sensorData && <span>No sensor data</span>}
       </div>
-      <div className = "tileButtons">
-        <button onClick={onEdit} className={plant.id}>edit</button>
-        <button onClick={onDelete} className={plant.id}>delete</button>
-      </div>
+      { edit &&
+        <div className = "tileButtons">
+          <button onClick={onEdit} className={plant.id}>edit</button>
+          <button onClick={onDelete} className={plant.id}>delete</button>
+        </div>
+      }
     </div>
   );
 };
