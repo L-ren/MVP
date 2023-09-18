@@ -10,8 +10,6 @@ const sensorDataSchema = fs.readFileSync(path.join(__dirname, './schema/sensorDa
 const summarySchema = fs.readFileSync(path.join(__dirname, './schema/summarySchema.sql')).toString();
 
 
-// MAKE THIS DRYER
-
 const createTables = async () => {
   // db.query(userSchema).catch(err => console.log(err));
   // db.query(hardinessSchema).catch(err => console.log(err));
